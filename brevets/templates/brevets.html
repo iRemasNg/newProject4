@@ -113,6 +113,7 @@
     <script type="text/javascript">
 
         var SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
+
         var TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times";
 
         // Pass calc_times a <td> element containing the data for a control.
@@ -121,11 +122,14 @@
 
         function calc_times(control) {
             var km = control.find("input[name='km']").val();
+            // var brevet_dist = $("#brevet_dist_km").val();
             var brevet_dist = $("#brevet_dist_km").val();
+
             var begin_time = $("input[name='begin_time']").val();
             var begin_date = $("input[name='begin_date']").val();
-            var open_time_field = control.find("input[name='open']");
-            var close_time_field = control.find("input[name='close']");
+              var open_time_field = control.find("input[name='open']");
+             var close_time_field = control.find("input[name='close']");
+            
 
             $.getJSON(TIME_CALC_URL,
                 { km: km, brevet_dist: brevet_dist, begin_time: begin_time, begin_date: begin_date },
@@ -135,6 +139,7 @@
                     console.log(times)
                     console.log("Got a response: " +  times);
                     console.log("Response.open = " + times.open);
+                    console.log("Response.close = " + times.open);
                     open_time_field.val( moment(times.open).format("ddd M/D H:mm"));
                     close_time_field.val( moment(times.close).format("ddd M/D H:mm"));
                 } // end of handler function
@@ -152,7 +157,6 @@
                     var control_entry = $(this).parents(".control")
                     var target = control_entry.find("input[name='km']");
                     target.val( km );
-                    // Then calculate times for this entry
                     calc_times(control_entry);
                 });
 
@@ -164,9 +168,9 @@
                     var control_entry = $(this).parents(".control")
                     var target = control_entry.find("input[name='miles']");
                     target.val( miles );
-                    // Then calculate times for this entry
                     calc_times(control_entry);
                 });
+
         });   // end of what we do on document ready
 
     </script>
