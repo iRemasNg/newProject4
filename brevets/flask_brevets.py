@@ -45,9 +45,7 @@ def _calc_times():
     app.logger.debug(f"request.args: {request.args}")
     app.logger.debug(f"km={km}")
 
-    #########
-    # my changes
-    #########
+   
     brevet_dist = request.args.get('brevet_dist', 0, type=int)
     begin_date = request.args.get('begin_date', "", type=str)
     begin_time = request.args.get('begin_time', "", type=str)
